@@ -1995,6 +1995,11 @@ sanctuary-show@1.0.0, sanctuary-show@1.0.x:
   resolved "https://registry.yarnpkg.com/sanctuary-show/-/sanctuary-show-1.0.0.tgz#72deb4812f9decec850e03286807dca1c97a1d61"
   integrity sha512-63UqNGr5M6wkzKp6eGc/Gy6JBIV2PbzPd3q88+0F9z0qydAQsCWJ+7e4oor39rEEwj2GkZMDEhqGuiMl9eEnYw==
 
+sanctuary-style@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-style/-/sanctuary-style-3.0.0.tgz#c39a7c925b24190aa00f5698557d2505b18db35a"
+  integrity sha512-99fUdz2MKE7GnxqrOFgBWM0rzdf2YUAhFAaOQb4FUatvHSXX13syIUOiMF0jeAMt26w2wrZGvzlF62EQh1273w==
+
 sanctuary-type-classes@10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-10.0.0.tgz#25126f009348101dbe627c7b7efb7c6f63f792b1"

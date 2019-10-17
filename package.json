@@ -8,7 +8,8 @@
   },
   "devDependencies": {
     "eslint": "^6.5.1",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "sanctuary-style": "^3.0.0"
   },
   "dependencies": {
     "chalk": "2.4.1",

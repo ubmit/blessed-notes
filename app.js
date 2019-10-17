@@ -1,58 +1,60 @@
-const yargs = require("yargs");
-const { addNote, removeNote, listNotes, readNote } = require("./notes");
+'use strict';
 
-yargs.command({
-  command: "add",
-  describe: "add a new note",
+const yargs = require ('yargs');
+const {addNote, removeNote, listNotes, readNote} = require ('./notes');
+
+yargs.command ({
+  command: 'add',
+  describe: 'add a new note',
   builder: {
     title: {
-      describe: "note title",
+      describe: 'note title',
       demandOption: true,
-      type: "string"
+      type: 'string',
     },
     description: {
-      describe: "note description",
-      type: "string"
+      describe: 'note description',
+      type: 'string',
     },
     body: {
-      describe: "note body",
+      describe: 'note body',
       demandOption: true,
-      type: "string"
-    }
+      type: 'string',
+    },
   },
-  handler: addNote
+  handler: addNote,
 });
 
-yargs.command({
-  command: "remove",
-  describe: "remove a note",
+yargs.command ({
+  command: 'remove',
+  describe: 'remove a note',
   builder: {
     title: {
-      describe: "note title",
+      describe: 'note title',
       demandOption: true,
-      type: "string"
-    }
+      type: 'string',
+    },
   },
-  handler: removeNote
+  handler: removeNote,
 });
 
-yargs.command({
-  command: "list",
-  describe: "list all notes",
-  handler: listNotes
+yargs.command ({
+  command: 'list',
+  describe: 'list all notes',
+  handler: listNotes,
 });
 
-yargs.command({
-  command: "read",
-  describe: "read a note",
+yargs.command ({
+  command: 'read',
+  describe: 'read a note',
   builder: {
     title: {
-      describe: "note title",
+      describe: 'note title',
       demandOption: true,
-      type: "string"
-    }
+      type: 'string',
+    },
   },
-  handler: readNote
+  handler: readNote,
 });
 
-yargs.parse();
+yargs.parse ();
