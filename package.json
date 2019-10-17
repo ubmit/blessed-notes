@@ -1,0 +1,19 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "chalk": "2.4.1",
+    "sanctuary": "^2.0.0",
+    "validator": "10.8.0",
+    "yargs": "12.0.2"
+  }
+}
