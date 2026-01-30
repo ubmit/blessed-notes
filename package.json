@@ -1,18 +1,27 @@
 {
   "name": "notes-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/app.js",
   "license": "MIT",
   "scripts": {
     "db:create": "echo '[]' > ./db/notes.json",
-    "lint": "eslint --config .eslintrc.json -- ./src/**/*.js"
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/app.js",
+    "lint": "biome lint ./src",
+    "format": "biome format --write ./src",
+    "check": "biome check ./src"
   },
   "devDependencies": {
-    "eslint": "^6.5.1"
+    "@biomejs/biome": "^1.9.4",
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^22.10.7",
+    "@types/yargs": "^17.0.32",
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "chalk": "2.4.1",
-    "sanctuary": "^2.0.0",
+    "neverthrow": "^6.2.2",
     "yargs": "12.0.2"
-  }
+  },
+  "packageManager": "pnpm@9.15.2"
 }

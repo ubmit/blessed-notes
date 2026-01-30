@@ -1,9 +1,12 @@
 'use strict';
 
-const yargs = require ('yargs');
-const {addNote, removeNote, listNotes, readNote} = require ('./notes');
+import yargs from 'yargs';
+import {hideBin} from 'yargs/helpers';
+import {addNote, listNotes, readNote, removeNote} from './notes';
 
-yargs.command ({
+const cli = yargs(hideBin(process.argv));
+
+cli.command({
   command: 'add',
   describe: 'add a new note',
   builder: {
@@ -25,7 +28,7 @@ yargs.command ({
   handler: addNote,
 });
 
-yargs.command ({
+cli.command({
   command: 'remove',
   describe: 'remove a note',
   builder: {
@@ -38,13 +41,13 @@ yargs.command ({
   handler: removeNote,
 });
 
-yargs.command ({
+cli.command({
   command: 'list',
   describe: 'list all notes',
   handler: listNotes,
 });
 
-yargs.command ({
+cli.command({
   command: 'read',
   describe: 'read a note',
   builder: {
@@ -57,4 +60,4 @@ yargs.command ({
   handler: readNote,
 });
 
-yargs.parse ();
+cli.parse();
