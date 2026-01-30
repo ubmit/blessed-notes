@@ -1,33 +1,38 @@
 {
-  "name": "blessed-notes-web",
+  "name": "web",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsr dev",
-    "build": "tsr build",
-    "start": "tsr start",
-    "lint": "biome lint ./src",
-    "format": "biome format --write ./src"
+    "dev": "vite dev --port 3000",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
-    "@radix-ui/react-avatar": "^1.0.4",
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-progress": "^1.0.3",
-    "@tanstack/react-router": "^1.98.0",
-    "@tanstack/react-router-devtools": "^1.98.0",
-    "@tanstack/start": "^1.98.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.5.2"
+    "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-router": "^1.132.0",
+    "@tanstack/react-router-devtools": "^1.132.0",
+    "@tanstack/react-router-ssr-query": "^1.131.7",
+    "@tanstack/react-start": "^1.132.0",
+    "@tanstack/router-plugin": "^1.132.0",
+    "lucide-react": "^0.561.0",
+    "nitro": "npm:nitro-nightly@latest",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vite-tsconfig-paths": "^6.0.2"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.45",
-    "tailwindcss": "^4.0.0"
-  },
-  "packageManager": "pnpm@9.15.2"
+    "@tanstack/devtools-vite": "^0.3.11",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^7.1.7",
+    "vitest": "^3.0.5",
+    "web-vitals": "^5.1.0"
+  }
 }
