@@ -9,14 +9,16 @@
     "start": "node dist/app.js",
     "lint": "biome lint ./cli",
     "format": "biome format --write ./cli",
-    "check": "biome check ./cli"
+    "check": "biome check ./cli",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/chalk": "^2.2.0",
     "@types/node": "^22.10.7",
     "@types/yargs": "^17.0.32",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
   },
   "dependencies": {
     "chalk": "2.4.1",

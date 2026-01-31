@@ -7,6 +7,19 @@ export type Note = {
   body: string
 }
 
+type NotesDataV1 = {
+  version: 1
+  notes: Note[]
+}
+
+type NotesData = NotesDataV1
+
+type ParsedNotes = {
+  data: NotesData
+  migrated: boolean
+}
+
+const currentVersion = 1
 const defaultNotesPath = path.join('db', 'notes.json')
 
 const resolveNotesPath = () => {
@@ -30,32 +43,99 @@ const resolveNotesPath = () => {
 
 const readNotesFile = (): Result<string, Error> => {
   try {
-    return ok(fs.readFileSync(resolveNotesPath(), 'utf8'))
+    const notesPath = resolveNotesPath()
+    return ok(fs.readFileSync(notesPath, 'utf8'))
   } catch (error) {
-    return err(error as Error)
+    const typedError = error as NodeJS.ErrnoException
+    if (typedError.code === 'ENOENT') {
+      return ok('[]')
+    }
+    return err(typedError)
   }
 }
 
-const parseNotes = (data: string): Result<Note[], Error> => {
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null
+
+const isNote = (value: unknown): value is Note => {
+  if (!isRecord(value)) {
+    return false
+  }
+  return typeof value.title === 'string' && typeof value.body === 'string'
+}
+
+const parseNotesArray = (value: unknown): Result<Note[], Error> => {
+  if (!Array.isArray(value)) {
+    return err(new Error('notes data should be an array'))
+  }
+  if (!value.every(isNote)) {
+    return err(new Error('notes data contains invalid entries'))
+  }
+  return ok(value)
+}
+
+const parseNotesData = (value: unknown): Result<ParsedNotes, Error> => {
+  if (Array.isArray(value)) {
+    const notesResult = parseNotesArray(value)
+    return notesResult.map((notes) => ({
+      data: { version: 1, notes },
+      migrated: true,
+    }))
+  }
+
+  if (!isRecord(value)) {
+    return err(new Error('notes data should be an object'))
+  }
+
+  if (value.version !== currentVersion) {
+    return err(new Error('unsupported notes data version'))
+  }
+
+  const notesResult = parseNotesArray(value.notes)
+  return notesResult.map((notes) => ({
+    data: { version: 1, notes },
+    migrated: false,
+  }))
+}
+
+const parseNotes = (data: string): Result<ParsedNotes, Error> => {
   try {
     const parsed = JSON.parse(data) as unknown
-    if (!Array.isArray(parsed)) {
-      return err(new Error('notes data should be an array'))
-    }
-    return ok(parsed as Note[])
+    return parseNotesData(parsed)
   } catch (error) {
     return err(error as Error)
   }
 }
 
-export const loadNotes = () => readNotesFile().andThen(parseNotes)
+const ensureNotesDir = () => {
+  const notesPath = resolveNotesPath()
+  fs.mkdirSync(path.dirname(notesPath), { recursive: true })
+  return notesPath
+}
 
-export const saveNotes = (notes: Note[]): Result<Note[], Error> => {
+const writeNotesData = (data: NotesData): Result<NotesData, Error> => {
   try {
-    const data = JSON.stringify(notes)
-    fs.writeFileSync(resolveNotesPath(), data)
-    return ok(notes)
+    const notesPath = ensureNotesDir()
+    fs.writeFileSync(notesPath, JSON.stringify(data, null, 2))
+    return ok(data)
   } catch (error) {
     return err(error as Error)
   }
 }
+
+export const loadNotes = () =>
+  readNotesFile()
+    .andThen(parseNotes)
+    .andThen(({ data, migrated }) => {
+      if (migrated) {
+        const writeResult = writeNotesData(data)
+        if (writeResult.isErr()) {
+          return err(writeResult.error)
+        }
+      }
+
+      return ok(data.notes)
+    })
+
+export const saveNotes = (notes: Note[]): Result<Note[], Error> =>
+  writeNotesData({ version: currentVersion, notes }).map((data) => data.notes)

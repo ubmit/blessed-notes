@@ -44,6 +44,36 @@ Switch repo tooling from Yarn to pnpm and update scripts/docs accordingly.
 Expose notes data via API routes for the web app and share data access logic.
 
 ## Phase 7 — Polish UX and responsiveness
-**Status:** ⏳ Not started
+**Status:** ✅ Done
 
 Finalize spacing, typography, and responsive behavior to match the reference UI.
+
+## Phase 8 — Notes CRUD UI + client state
+**Status:** ✅ Done
+
+Add create/edit/delete flows, empty states, and optimistic updates.
+
+## Phase 9 — Validation + error handling
+**Status:** ✅ Done
+
+Unify form validation, API error display, and user feedback (toasts).
+
+## Phase 10 — Search, filters, and sorting
+**Status:** ✅ Done
+
+Add fast search, tag filters, and sort options with URL state.
+
+## Phase 11 — Persistence + data migration
+**Status:** ✅ Done
+
+Harden storage, add migrations, and validate legacy data.
+
+## Phase 12 — Tests + CI
+**Status:** ✅ Done
+
+Add CLI + web tests and automate via CI.
+
+## Phase 13 — Release + docs
+**Status:** ✅ Done
+
+Versioning, changelog, and user docs updates.

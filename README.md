@@ -1,6 +1,6 @@
 # blessed-notes
 
-CLI (blessed) notes app built using Node.js, Yargs, and neverthrow
+CLI + web notes app built with Node.js, Yargs, neverthrow, TanStack Start
 
 ## Motivation
 
@@ -22,6 +22,15 @@ pnpm build
 ```
 
 Nice, now you are good to go!
+
+## Web app
+
+```bash
+pnpm -C web install
+pnpm -C web dev
+```
+
+Open `http://localhost:3000`.
 
 ## Usage
 
@@ -57,4 +66,15 @@ This command allows you to read a note's body:
 
 ```bash
 node dist/app.js read --title="note title"
+```
+
+## Data
+
+Notes live in `db/notes.json`. v1 format is `{ "version": 1, "notes": [...] }`.
+
+## Tests
+
+```bash
+pnpm test
+pnpm -C web test
 ```
