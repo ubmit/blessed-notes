@@ -1,14 +1,7 @@
 'use strict';
 
-import fs from 'fs';
-import {resolve} from 'path';
-import {err, ok, type Result} from 'neverthrow';
+import {loadNotes, saveNotes, type Note} from './notes-store';
 import {log} from './utils';
-
-type Note = {
-  title: string;
-  body: string;
-};
 
 type NoteArgs = {
   title: string;
@@ -20,45 +13,10 @@ type TitleArgs = {
   title: string;
 };
 
-const stringify = (value: unknown) => JSON.stringify(value);
-
-const readFile = (path: string): Result<string, Error> => {
-  try {
-    return ok(fs.readFileSync(resolve(__dirname, path), 'utf8'));
-  } catch (error) {
-    return err(error as Error);
-  }
-};
-
-const writeFile = (path: string, data: string): Result<string, Error> => {
-  try {
-    fs.writeFileSync(resolve(__dirname, path), data);
-    return ok(data);
-  } catch (error) {
-    return err(error as Error);
-  }
-};
-
-const parseNotes = (data: string): Result<Note[], Error> => {
-  try {
-    const parsed = JSON.parse(data) as unknown;
-    if (!Array.isArray(parsed)) {
-      return err(new Error('notes data should be an array'));
-    }
-    return ok(parsed as Note[]);
-  } catch (error) {
-    return err(error as Error);
-  }
-};
-
-const saveJSON = (path: string) => (notes: Note[]) => writeFile(path, stringify(notes));
-
-const loadJSON = (path: string) => readFile(path).andThen(parseNotes);
-
 const hasTitle = (title: string) => (note: Note) => note.title === title;
 
-const addNote = ({title, body}: NoteArgs) => {
-  const notesResult = loadJSON('../db/notes.json');
+export const addNote = ({title, body}: NoteArgs) => {
+  const notesResult = loadNotes();
 
   if (notesResult.isErr()) {
     log.warning('unable to load notes');
@@ -70,7 +28,7 @@ const addNote = ({title, body}: NoteArgs) => {
 
   if (!duplicateNote) {
     const newNotes = [...notes, {title, body}];
-    const saveResult = saveJSON('../db/notes.json')(newNotes);
+    const saveResult = saveNotes(newNotes);
 
     if (saveResult.isOk()) {
       log.success('new note added!');
@@ -82,8 +40,8 @@ const addNote = ({title, body}: NoteArgs) => {
   }
 };
 
-const removeNote = ({title}: TitleArgs) => {
-  const notesResult = loadJSON('../db/notes.json');
+export const removeNote = ({title}: TitleArgs) => {
+  const notesResult = loadNotes();
 
   if (notesResult.isErr()) {
     log.warning('unable to load notes');
@@ -97,7 +55,7 @@ const removeNote = ({title}: TitleArgs) => {
     log.warning('note not found');
   } else {
     log.warning(`the following note will be removed: ${title}`);
-    const saveResult = saveJSON('../db/notes.json')(newNotes);
+    const saveResult = saveNotes(newNotes);
 
     if (saveResult.isOk()) {
       log.success('the note was successfully removed!');
@@ -107,8 +65,8 @@ const removeNote = ({title}: TitleArgs) => {
   }
 };
 
-const listNotes = () => {
-  const notesResult = loadJSON('../db/notes.json');
+export const listNotes = () => {
+  const notesResult = loadNotes();
 
   if (notesResult.isErr()) {
     log.warning('unable to load notes');
@@ -125,8 +83,8 @@ const listNotes = () => {
   }
 };
 
-const readNote = ({title}: TitleArgs) => {
-  const notesResult = loadJSON('../db/notes.json');
+export const readNote = ({title}: TitleArgs) => {
+  const notesResult = loadNotes();
 
   if (notesResult.isErr()) {
     log.warning('unable to load notes');
@@ -142,5 +100,3 @@ const readNote = ({title}: TitleArgs) => {
     log.plain(note.body);
   }
 };
-
-export {addNote, listNotes, readNote, removeNote};

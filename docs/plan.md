@@ -28,18 +28,18 @@ Implement the dashboard layout and core UI components aligned to the reference d
 ## Phase 4 — Convert CLI code to TypeScript
 **Status:** ✅ Done
 
-Convert `src/*.js` to `.ts`, add build tooling, and update CLI run scripts.
+Convert `cli/*.js` to `.ts`, add build tooling, and update CLI run scripts.
 
 ## Phase 5 — Move to pnpm
-**Status:** 🟡 In progress
+**Status:** ✅ Done
 
 Switch repo tooling from Yarn to pnpm and update scripts/docs accordingly.
 
-**Next steps:**
-- Generate `pnpm-lock.yaml` once registry access is available.
+**Notes:**
+- Root `pnpm-lock.yaml` checked in.
 
 ## Phase 6 — Data/API layer integration
-**Status:** ⏳ Not started
+**Status:** ✅ Done
 
 Expose notes data via API routes for the web app and share data access logic.
 

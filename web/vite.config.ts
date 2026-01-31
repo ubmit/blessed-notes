@@ -9,7 +9,13 @@ import { nitro } from 'nitro/vite'
 const config = defineConfig({
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@web': fileURLToPath(new URL('./src', import.meta.url)),
+      '@cli': fileURLToPath(new URL('../cli', import.meta.url)),
+    },
+  },
+  server: {
+    fs: {
+      allow: [fileURLToPath(new URL('..', import.meta.url))],
     },
   },
   plugins: [
