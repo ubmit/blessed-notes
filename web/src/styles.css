@@ -3,35 +3,45 @@
 :root {
   color-scheme: light;
 
-  --radius: 1.25rem;
+  --radius: 1rem;
 
-  --background: oklch(0.985 0.015 300);
-  --foreground: oklch(0.235 0.03 260);
-  --card: oklch(0.99 0.012 290);
-  --card-foreground: oklch(0.235 0.03 260);
-  --popover: oklch(0.99 0.012 290);
-  --popover-foreground: oklch(0.235 0.03 260);
-  --primary: oklch(0.78 0.16 55);
-  --primary-foreground: oklch(0.18 0.02 250);
-  --secondary: oklch(0.9 0.08 240);
-  --secondary-foreground: oklch(0.22 0.03 255);
-  --muted: oklch(0.95 0.03 285);
-  --muted-foreground: oklch(0.46 0.04 260);
-  --accent: oklch(0.9 0.1 165);
-  --accent-foreground: oklch(0.2 0.03 250);
-  --destructive: oklch(0.68 0.2 25);
-  --border: oklch(0.9 0.04 285);
-  --input: oklch(0.93 0.03 285);
-  --ring: oklch(0.78 0.16 55);
+  --background: oklch(0.985 0.01 95);
+  --foreground: oklch(0.2 0.02 265);
+  --card: oklch(0.995 0.005 96);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.99 0.008 96);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.69 0.19 35);
+  --primary-foreground: oklch(0.16 0.02 260);
+  --secondary: oklch(0.9 0.04 90);
+  --secondary-foreground: oklch(0.22 0.02 260);
+  --muted: oklch(0.95 0.012 95);
+  --muted-foreground: oklch(0.46 0.02 260);
+  --accent: oklch(0.68 0.19 35);
+  --accent-foreground: oklch(0.18 0.02 260);
+  --destructive: oklch(0.62 0.22 28);
+  --border: oklch(0.9 0.02 95);
+  --input: oklch(0.96 0.01 95);
+  --ring: oklch(0.7 0.19 35);
 
-  --canvas: oklch(0.985 0.02 295);
-  --sun: oklch(0.85 0.16 55);
-  --sky: oklch(0.86 0.1 225);
-  --mint: oklch(0.88 0.11 165);
-  --peach: oklch(0.88 0.12 35);
-  --lilac: oklch(0.9 0.08 300);
-  --blueberry: oklch(0.78 0.12 250);
-  --ink: oklch(0.24 0.03 255);
+  --app-bg: oklch(0.985 0.01 95);
+  --panel: oklch(0.995 0.004 96);
+  --panel-muted: oklch(0.975 0.01 96);
+  --paper: oklch(0.995 0.004 96);
+
+  --sidebar: oklch(0.23 0.02 255);
+  --sidebar-foreground: oklch(0.95 0.01 95);
+  --sidebar-muted: oklch(0.32 0.02 255);
+  --sidebar-highlight: oklch(0.38 0.03 255);
+
+  --accent-soft: oklch(0.92 0.05 40);
+  --accent-strong: oklch(0.62 0.2 32);
+
+  --tag-sand: oklch(0.9 0.08 70);
+  --tag-sky: oklch(0.84 0.1 230);
+  --tag-moss: oklch(0.82 0.12 150);
+  --tag-rose: oklch(0.85 0.14 25);
+  --tag-lilac: oklch(0.88 0.1 300);
 }
 
 @theme inline {
@@ -64,12 +74,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: "Lexend", system-ui, sans-serif;
+    font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
     background-image:
-      radial-gradient(circle at 8% 8%, color-mix(in oklab, var(--sun) 22%, transparent) 0%, transparent 48%),
-      radial-gradient(circle at 85% 12%, color-mix(in oklab, var(--lilac) 30%, transparent) 0%, transparent 52%),
-      radial-gradient(circle at 12% 85%, color-mix(in oklab, var(--mint) 25%, transparent) 0%, transparent 50%),
-      linear-gradient(140deg, color-mix(in oklab, var(--canvas) 80%, white) 0%, var(--canvas) 55%, color-mix(in oklab, var(--lilac) 35%, white) 100%);
+      radial-gradient(circle at 12% 12%, color-mix(in oklab, var(--accent) 18%, transparent) 0%, transparent 50%),
+      radial-gradient(circle at 85% 5%, color-mix(in oklab, var(--tag-lilac) 20%, transparent) 0%, transparent 52%),
+      linear-gradient(130deg, color-mix(in oklab, var(--app-bg) 95%, white) 0%, var(--app-bg) 55%, color-mix(in oklab, var(--tag-sand) 22%, white) 100%);
   }
 }
 
@@ -77,61 +86,16 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Bricolage Grotesque", "Lexend", system-ui, sans-serif;
+  font-family: "Fraunces", "Times New Roman", serif;
   letter-spacing: -0.02em;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--sun) 45%, white);
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-@keyframes rise {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+  background: color-mix(in oklab, var(--accent) 35%, white);
 }
 
 @layer utilities {
-  .float-slow {
-    animation: float 14s ease-in-out infinite;
-  }
-
-  .float-slower {
-    animation: float 18s ease-in-out infinite;
-  }
-
-  .reveal {
-    animation: rise 0.7s ease both;
-  }
-
-  .reveal-1 {
-    animation-delay: 0.05s;
-  }
-
-  .reveal-2 {
-    animation-delay: 0.12s;
-  }
-
-  .reveal-3 {
-    animation-delay: 0.18s;
-  }
-
-  .reveal-4 {
-    animation-delay: 0.24s;
+  .font-editor {
+    font-family: "Source Serif 4", "Times New Roman", serif;
   }
 }
