@@ -38,7 +38,7 @@ pnpm -C web test
 
 - Routes live in `web/src/routes` (file-based). Main UI: `/`.
 - API: `web/src/routes/api/notes.ts` (GET/POST/PUT/DELETE).
-- Prefer shadcn/ui-style components in `web/src/components/ui`.
+- Prefer shadcn/ui components in `web/src/components/ui`.
 - Tailwind v4 only.
 
 ## CLI
