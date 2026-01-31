@@ -1,27 +1,25 @@
 # blessed-notes
 
-CLI + web notes app built with Node.js, Yargs, neverthrow, TanStack Start
-
-## Motivation
-
-The idea for this app came from Andrew Mead's Node.js course. However, I decided to practice FP while learning how to create a CLI app so I added neverthrow.
+CLI + web notes app (Node.js, neverthrow, TanStack Start, Tailwind v4).
 
 ## Setup
-
-First of all, clone this repository, install dependencies, and create your `db/notes.json` file:
 
 ```bash
 pnpm install
 pnpm db:create
-```
-
-Then build the CLI:
-
-```bash
 pnpm build
 ```
 
-Nice, now you are good to go!
+## CLI
+
+Commands: `add`, `remove`, `list`, `read`.
+
+```bash
+node dist/app.js add --title="note title" --body="note body"
+node dist/app.js remove --title="note title"
+node dist/app.js list
+node dist/app.js read --title="note title"
+```
 
 ## Web app
 
@@ -32,45 +30,12 @@ pnpm -C web dev
 
 Open `http://localhost:3000`.
 
-## Usage
-
-There are 4 available commands: `add`, `remove`, `list` and `read`.
-
-### add
-
-This command allows you to add a note to `db/notes.json`:
-
-```bash
-node dist/app.js add --title="note title" --description="note description" --body="note body"
-```
-
-### remove
-
-This command allows you to remove a note from `db/notes.json`:
-
-```bash
-node dist/app.js remove --title="note title"
-```
-
-### list
-
-This command lists all notes available at `db/notes.json`:
-
-```bash
-node dist/app.js list
-```
-
-### read
-
-This command allows you to read a note's body:
-
-```bash
-node dist/app.js read --title="note title"
-```
-
 ## Data
 
-Notes live in `db/notes.json`. v1 format is `{ "version": 1, "notes": [...] }`.
+- Default path: `db/notes.json`
+- Format: `{ "version": 1, "notes": [{ "title": "...", "body": "..." }] }`
+- `pnpm db:create` writes `[]`; app auto-migrates to v1 on first load.
+- Override path: `NOTES_DB_PATH` (resolved from cwd).
 
 ## Tests
 
